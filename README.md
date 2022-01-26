@@ -26,10 +26,6 @@ Then run:
 ```
 bundle install
 ```
-run ruby app in the Command Line:
-```
-ruby morse.rb
-```
 
 ## `Tests`
 ### To track linter errors locally follow these steps:  
