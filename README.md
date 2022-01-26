@@ -15,7 +15,7 @@ To get a local copy of this project:
 
 Clone this repository or download the Zip folder:
 ```
-git clone git@github.com:KDlamini/morse_code_decoder.git
+git clone git@github.com:KDlamini/OOP-school-library.git
 ```
 
 To get started, In the root directory run:
@@ -55,7 +55,7 @@ rubocop --auto-correct-all | rubocop -A
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/KDlamini/morse_code_decoder/issues).
+Feel free to check the [issues page](https://github.com/KDlamini/OOP-school-library/issues).
 
 ## Show your support
 
