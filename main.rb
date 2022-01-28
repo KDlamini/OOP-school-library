@@ -13,7 +13,7 @@ class App
   def run
     clear
     puts "Welcome to The School Library"
-    permission
+    prompt_user
   end
 
   def prompt_user
@@ -98,7 +98,25 @@ class App
     end
 
     @users.push(Student.new(age: age.to_i, name: name, parent_permission: parent_permission))
-    puts "\nStudent created successfully!"
+    sleep 1
+    puts "\nStudent created successfully!!!"
+    sleep 1
+    continue?
+  end
+
+  def create_teacher
+    print "Age: "
+    age = gets.chomp
+
+    print "Name: "
+    name = gets.chomp
+
+    print "Specialization: "
+    specialization = gets.chomp
+    @users.push(Teacher.new(specialization: specialization, age: age.to_i, name: name))
+    sleep 1
+    puts "\nTeacher added successfully!!!"
+    sleep 1
     continue?
   end
 
