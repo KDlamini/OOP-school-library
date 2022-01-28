@@ -13,7 +13,7 @@ class App
   def run
     clear
     puts "Welcome to The School Library"
-    prompt_user
+    permission
   end
 
   def prompt_user
@@ -91,7 +91,7 @@ class App
     print "Has parent permission? [Y/N]: "
     permission = gets.chomp
 
-    if permission.downcase == "y"
+    if permission.downcase == "y" || permission.downcase == "yes"
       parent_permission = true
     else
       parent_permission = false
@@ -99,6 +99,19 @@ class App
 
     @users.push(Student.new(age: age.to_i, name: name, parent_permission: parent_permission))
     puts "\nStudent created successfully!"
+    continue?
+  end
+
+  def continue?
+    print "\nDo you wish to continue? [Y/N]: "
+    answer = gets.chomp
+
+    if answer.downcase == "y" || answer.downcase == "yes"
+      clear
+      prompt_user
+    else
+      exit
+    end
   end
 
   def invalid_prompt
