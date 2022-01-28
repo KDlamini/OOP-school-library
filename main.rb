@@ -98,10 +98,7 @@ class App
     end
 
     @users.push(Student.new(age: age.to_i, name: name, parent_permission: parent_permission))
-    sleep 1
-    puts "\nStudent created successfully!!!"
-    sleep 1
-    continue?
+    response("Student")
   end
 
   def create_teacher
@@ -114,8 +111,23 @@ class App
     print "Specialization: "
     specialization = gets.chomp
     @users.push(Teacher.new(specialization: specialization, age: age.to_i, name: name))
+    response("Teacher")
+  end
+
+  def create_book
+    print 'Title: '
+    title = gets.chomp
+
+    print 'Author: '
+    author = gets.chomp
+
+    @books.push(Book.new(title, author))
+    response("Book ")
+  end
+
+  def response(name)
     sleep 1
-    puts "\nTeacher added successfully!!!"
+    puts "\n#{name} created successfully!!!"
     sleep 1
     continue?
   end
