@@ -155,6 +155,14 @@ class App
     response("Rental")
   end
 
+  def list_all_books
+    @books.each do |book|
+      puts "Title: \"#{book.title}\", Author: #{book.author}"
+    end
+    puts "\n"
+    continue?
+  end
+
   def response(name)
     sleep 1
     puts "\n#{name} created successfully!!!"
