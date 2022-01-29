@@ -163,6 +163,14 @@ class App
     continue?
   end
 
+  def list_all_people
+    @users.each do |user|
+      puts "[#{user.class}] Name: #{user.name}, ID: #{user.id}, Age: #{user.age}"
+    end
+    puts "\n"
+    continue?
+  end
+
   def response(name)
     sleep 1
     puts "\n#{name} created successfully!!!"
@@ -174,7 +182,7 @@ class App
     print "\nDo you wish to continue? [Y/N]: "
     answer = gets.chomp
 
-    if answer.downcase == "y" || answer.downcase == "yes"
+    if answer.downcase == "y" || answer.downcase == "yes" || answer == ""
       clear
       prompt_user
     else
