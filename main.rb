@@ -125,6 +125,36 @@ class App
     response("Book ")
   end
 
+  def create_rental
+    puts "Select a book from the following list by number:\n"
+
+    @books.each_with_index do |book, index|
+      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+    end
+
+    book_index = gets.chomp
+
+    puts "\nSelect a person from the following list by number (not id):"
+
+    @users.each_with_index do |user, index|
+      puts "#{index}) Name: #{user.name}, ID: #{user.id}, Age: #{user.age}"
+    end
+
+    user_index = gets.chomp
+
+    if book_index.to_i >= @books.length || user_index.to_i >= @users.length
+      clear
+      puts "The user/book selected does not exist.\n"
+      continue?
+    end
+
+    print "\nDate: "
+    date = gets.chomp
+
+    @rentals.push(Rental.new(@users[user_index.to_i], @books[book_index.to_i], date))
+    response("Rental")
+  end
+
   def response(name)
     sleep 1
     puts "\n#{name} created successfully!!!"
