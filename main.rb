@@ -2,8 +2,11 @@ require './student'
 require './teacher'
 require './book'
 require './rental'
+require './module'
 
 class App
+  include Helpers
+
   def initialize
     @books = []
     @users = []
@@ -12,7 +15,7 @@ class App
 
   def run
     clear
-    puts "Welcome to The School Library"
+    puts 'Welcome to The School Library'
     prompt_user
   end
 
@@ -23,7 +26,7 @@ class App
     if input.to_i.between?(1, 6)
       clear
       selection(input)
-    elsif input == "0"
+    elsif input == '0'
       exit
     else
       invalid_prompt
@@ -33,37 +36,37 @@ class App
 
   def options
     puts "\nPlease select a number to choose an option:"
-    puts "1 - Create a user"
-    puts "2 - Create a book"
-    puts "3 - Create a rental"
-    puts "4 - List all books"
-    puts "5 - List all people"
-    puts "6 - List all rentals by user id"
-    puts "0 - Exit"
+    puts '1 - Create a user'
+    puts '2 - Create a book'
+    puts '3 - Create a rental'
+    puts '4 - List all books'
+    puts '5 - List all people'
+    puts '6 - List all rentals by user id'
+    puts '0 - Exit'
   end
 
   def selection(input)
     case input
-    when "1"
+    when '1'
       create_user
-    when "2"
+    when '2'
       create_book
-    when "3"
+    when '3'
       create_rental
-    when "4"
+    when '4'
       list_all_books
-    when "5"
+    when '5'
       list_all_people
-    when "6"
+    when '6'
       list_all_rental_by_id
     end
   end
 
   def create_user
     puts "\nPlease select a number to choose an option:"
-    puts "1 - Create a student"
-    puts "2 - Create a teacher"
-    puts "0 - Exit"
+    puts '1 - Create a student'
+    puts '2 - Create a teacher'
+    puts '0 - Exit'
     user = gets.chomp
 
     case user
@@ -82,37 +85,33 @@ class App
   end
 
   def create_student
-    print "Age: "
+    print 'Age: '
     age = gets.chomp
 
-    print "Name: "
+    print 'Name: '
     name = gets.chomp
 
-    print "Has parent permission? [Y/N]: "
+    print 'Has parent permission? [Y/N]: '
     permission = gets.chomp
 
-    if permission.downcase == "y" || permission.downcase == "yes"
-      parent_permission = true
-    else
-      parent_permission = false
-    end
+    parent_permission = permission.downcase == 'y' || permission.downcase == 'yes' || permission == ''
 
     @users.push(Student.new(age: age.to_i, name: name, parent_permission: parent_permission))
-    response("Student")
+    response('Student')
   end
 
   def create_teacher
-    print "Age: "
+    print 'Age: '
     age = gets.chomp
 
-    print "Name: "
+    print 'Name: '
     name = gets.chomp
 
-    print "Specialization: "
+    print 'Specialization: '
     specialization = gets.chomp
-  
+
     @users.push(Teacher.new(specialization: specialization, age: age.to_i, name: name))
-    response("Teacher")
+    response('Teacher')
   end
 
   def create_book
@@ -123,7 +122,7 @@ class App
     author = gets.chomp
 
     @books.push(Book.new(title, author))
-    response("Book ")
+    response('Book ')
   end
 
   def create_rental
@@ -153,7 +152,7 @@ class App
     date = gets.chomp
 
     @rentals.push(Rental.new(@users[user_index.to_i], @books[book_index.to_i], date))
-    response("Rental")
+    response('Rental')
   end
 
   def list_all_books
@@ -185,40 +184,6 @@ class App
 
     puts "\n"
     continue?
-  end
-
-  def response(name)
-    sleep 1
-    puts "\n#{name} created successfully!!!"
-    sleep 1
-    continue?
-  end
-
-  def continue?
-    print "\nDo you wish to continue? [Y/N]: "
-    answer = gets.chomp
-
-    if answer.downcase == "y" || answer.downcase == "yes" || answer == ""
-      clear
-      prompt_user
-    else
-      exit
-    end
-  end
-
-  def invalid_prompt
-    clear
-    puts "Incorrect selection, please try again!"
-    sleep 1
-  end
-
-  def clear
-    print "\e[2J\e[f"
-  end
-
-  def exit
-    clear
-    nil
   end
 end
 
