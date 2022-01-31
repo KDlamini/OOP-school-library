@@ -7,11 +7,9 @@ require './module'
 class App
   include Helpers
 
-  def initialize
-    @books = []
-    @users = []
-    @rentals = []
-  end
+  @@books = []
+  @@users = []
+  @@rentals = []
 
   def run
     clear
@@ -34,8 +32,6 @@ class App
     end
   end
 
-  protected
-
   def options
     puts "\nPlease select a number to choose an option:"
     puts '1 - Create a user'
@@ -54,7 +50,7 @@ class App
     when '2'
       create_book
     when '3'
-      create_rental
+      CreateRental.new.add_rental
     when '4'
       list_all_books
     when '5'
@@ -71,51 +67,21 @@ class App
     print 'Author: '
     author = gets.chomp
 
-    @books.push(Book.new(title, author))
+    @@books.push(Book.new(title, author))
     response('Book ')
   end
 
-  def create_rental
-    puts "Select a book from the following list by number:\n"
-
-    @books.each_with_index do |book, index|
-      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
-    end
-
-    book_index = gets.chomp
-
-    puts "\nSelect a person from the following list by number (not id):"
-
-    @users.each_with_index do |user, index|
-      puts "#{index}) Name: #{user.name}, ID: #{user.id}, Age: #{user.age}"
-    end
-
-    user_index = gets.chomp
-
-    if book_index.to_i >= @books.length || user_index.to_i >= @users.length
-      clear
-      puts "The user/book selected does not exist.\n"
-      continue?
-    end
-
-    print "\nDate: "
-    date = gets.chomp
-
-    @rentals.push(Rental.new(@users[user_index.to_i], @books[book_index.to_i], date))
-    response('Rental')
-  end
-
   def list_all_books
-    @books.each do |book|
-      puts "Title: \"#{book.title}\", Author: #{book.author}"
+    @@books.each do |book|
+      puts "Title: #{book.title} | Author: #{book.author}"
     end
     puts "\n"
     continue?
   end
 
   def list_all_people
-    @users.each do |user|
-      puts "[#{user.class}] Name: #{user.name}, ID: #{user.id}, Age: #{user.age}"
+    @@users.each do |user|
+      puts "[#{user.class}] Name: #{user.name} | ID: #{user.id} | Age: #{user.age}"
     end
     puts "\n"
     continue?
@@ -126,9 +92,9 @@ class App
     user_id = gets.chomp
 
     puts 'Rentals:'
-    @rentals.each do |rental|
+    @@rentals.each do |rental|
       if rental.person.id.to_s == user_id
-        puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
+        puts "[#{rental.person.class}] Name: #{rental.person.name} | Date: #{rental.date} | Book: \"#{rental.book.title}\" by #{rental.book.author}"
       end
     end
 
@@ -176,12 +142,12 @@ class CreateStudent < App
 
     parent_permission = permission.downcase == 'y' || permission.downcase == 'yes' || permission == ''
 
-    @users.push(Student.new(age: age.to_i, name: name, parent_permission: parent_permission))
+    @@users.push(Student.new(age: age.to_i, name: name, parent_permission: parent_permission))
     response('Student')
   end
 end
 
-class CreateTeacher
+class CreateTeacher < App
   def add_teacher
     print 'Age: '
     age = gets.chomp
@@ -192,8 +158,40 @@ class CreateTeacher
     print 'Specialization: '
     specialization = gets.chomp
 
-    @users.push(Teacher.new(specialization: specialization, age: age.to_i, name: name))
+    @@users.push(Teacher.new(specialization: specialization, age: age.to_i, name: name))
     response('Teacher')
+  end
+end
+
+class CreateRental < App
+    def add_rental
+    puts "Select a book from the following list by number:\n"
+
+    @@books.each_with_index do |book, index|
+      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+    end
+
+    book_index = gets.chomp
+
+    puts "\nSelect a person from the following list by number (not id):"
+
+    @@users.each_with_index do |user, index|
+      puts "#{index}) Name: #{user.name}, ID: #{user.id}, Age: #{user.age}"
+    end
+
+    user_index = gets.chomp
+
+    if !@@books[book_index.to_i] || !@@users[user_index.to_i]
+      clear
+      puts "The user/book selected does not exist.\n"
+      continue?
+    else
+      print "\nDate: "
+      date = gets.chomp
+
+      @@rentals << Rental.new(@@users[user_index.to_i], @@books[book_index.to_i], date)
+      response('Rental')
+    end
   end
 end
 
