@@ -48,7 +48,7 @@ class App
     when '1'
       CreateUser.new.add_user
     when '2'
-      create_book
+      CreateBook.new.add_book
     when '3'
       CreateRental.new.add_rental
     when '4'
@@ -58,17 +58,6 @@ class App
     when '6'
       list_all_rental_by_id
     end
-  end
-
-  def create_book
-    print 'Title: '
-    title = gets.chomp
-
-    print 'Author: '
-    author = gets.chomp
-
-    @@books.push(Book.new(title, author))
-    response('Book ')
   end
 
   def list_all_books
@@ -142,7 +131,7 @@ class CreateStudent < App
 
     parent_permission = permission.downcase == 'y' || permission.downcase == 'yes' || permission == ''
 
-    @@users.push(Student.new(age: age.to_i, name: name, parent_permission: parent_permission))
+    @@users << Student.new(age: age.to_i, name: name, parent_permission: parent_permission)
     response('Student')
   end
 end
@@ -158,8 +147,21 @@ class CreateTeacher < App
     print 'Specialization: '
     specialization = gets.chomp
 
-    @@users.push(Teacher.new(specialization: specialization, age: age.to_i, name: name))
+    @@users << Teacher.new(specialization: specialization, age: age.to_i, name: name)
     response('Teacher')
+  end
+end
+
+class CreateBook < App
+  def add_book
+    print 'Title: '
+    title = gets.chomp
+
+    print 'Author: '
+    author = gets.chomp
+
+    @@books << Book.new(title, author)
+    response('Book ')
   end
 end
 
