@@ -48,7 +48,7 @@ class App
   def selection(input)
     case input
     when '1'
-      create_user
+      CreateUser.new.add_user
     when '2'
       create_book
     when '3'
@@ -136,7 +136,9 @@ class App
 end
 
 class CreateUser
-  def create_user
+  include Helpers
+
+  def add_user
     puts "\nPlease select a number to choose an option:"
     puts '1 - Create a student'
     puts '2 - Create a teacher'
@@ -146,21 +148,21 @@ class CreateUser
     case user
     when '1'
       clear
-      create_student
+      CreateStudent.new.add_student
     when '2'
       clear
-      create_teacher
+      CreateTeacher.new.add_teacher
     when '0'
       exit
     else
       invalid_prompt
-      create_user
+      add_user
     end
   end
 end
 
 class CreateStudent
-  def create_student
+  def add_student
     print 'Age: '
     age = gets.chomp
 
@@ -178,7 +180,7 @@ class CreateStudent
 end
 
 class CreateTeacher
-  def create_teacher
+  def add_teacher
     print 'Age: '
     age = gets.chomp
 
