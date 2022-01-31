@@ -34,6 +34,8 @@ class App
     end
   end
 
+  protected
+
   def options
     puts "\nPlease select a number to choose an option:"
     puts '1 - Create a user'
@@ -161,7 +163,7 @@ class CreateUser
   end
 end
 
-class CreateStudent
+class CreateStudent < App
   def add_student
     print 'Age: '
     age = gets.chomp
