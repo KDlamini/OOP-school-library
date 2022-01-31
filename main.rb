@@ -62,58 +62,6 @@ class App
     end
   end
 
-  def create_user
-    puts "\nPlease select a number to choose an option:"
-    puts '1 - Create a student'
-    puts '2 - Create a teacher'
-    puts '0 - Exit'
-    user = gets.chomp
-
-    case user
-    when '1'
-      clear
-      create_student
-    when '2'
-      clear
-      create_teacher
-    when '0'
-      exit
-    else
-      invalid_prompt
-      create_user
-    end
-  end
-
-  def create_student
-    print 'Age: '
-    age = gets.chomp
-
-    print 'Name: '
-    name = gets.chomp
-
-    print 'Has parent permission? [Y/N]: '
-    permission = gets.chomp
-
-    parent_permission = permission.downcase == 'y' || permission.downcase == 'yes' || permission == ''
-
-    @users.push(Student.new(age: age.to_i, name: name, parent_permission: parent_permission))
-    response('Student')
-  end
-
-  def create_teacher
-    print 'Age: '
-    age = gets.chomp
-
-    print 'Name: '
-    name = gets.chomp
-
-    print 'Specialization: '
-    specialization = gets.chomp
-
-    @users.push(Teacher.new(specialization: specialization, age: age.to_i, name: name))
-    response('Teacher')
-  end
-
   def create_book
     print 'Title: '
     title = gets.chomp
@@ -184,6 +132,64 @@ class App
 
     puts "\n"
     continue?
+  end
+end
+
+class CreateUser
+  def create_user
+    puts "\nPlease select a number to choose an option:"
+    puts '1 - Create a student'
+    puts '2 - Create a teacher'
+    puts '0 - Exit'
+    user = gets.chomp
+
+    case user
+    when '1'
+      clear
+      create_student
+    when '2'
+      clear
+      create_teacher
+    when '0'
+      exit
+    else
+      invalid_prompt
+      create_user
+    end
+  end
+end
+
+class CreateStudent
+  def create_student
+    print 'Age: '
+    age = gets.chomp
+
+    print 'Name: '
+    name = gets.chomp
+
+    print 'Has parent permission? [Y/N]: '
+    permission = gets.chomp
+
+    parent_permission = permission.downcase == 'y' || permission.downcase == 'yes' || permission == ''
+
+    @users.push(Student.new(age: age.to_i, name: name, parent_permission: parent_permission))
+    response('Student')
+  end
+end
+
+class CreateTeacher
+  def create_teacher
+    print 'Age: '
+    age = gets.chomp
+
+    print 'Name: '
+    name = gets.chomp
+
+    print 'Specialization: '
+    specialization = gets.chomp
+
+    @users.push(Teacher.new(specialization: specialization, age: age.to_i, name: name))
+    response('Teacher')
   end
 end
 
