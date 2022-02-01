@@ -4,25 +4,17 @@ require './book'
 require './rental'
 require './helpers'
 require './createuser'
+require './list'
 
 class App
   include Helpers
+  include Listers
   include CreateUser
-
-  @@books = []
-  @@users = []
-  @@rentals = []
 
   def initialize
     @users = []
-  end
-
-  def update_users(user)
-    @users << user
-  end
-  
-  def get_user
-    @users
+    @books = []
+    @rentals = []
   end
 
   def run
@@ -68,10 +60,18 @@ class App
     when '4'
       ListAllBooks.new.list_all_books
     when '5'
-      ListAllPeople.new.list_all_people
+      list_all_people
     when '6'
       ListAllRentalById.new.list_all_rental_by_id
     end
+  end
+
+  def update_users(user)
+    @users << user
+  end
+  
+  def get_users
+    @users
   end
 end
 
@@ -81,7 +81,7 @@ class ListAllRentalById < App
     user_id = gets.chomp
 
     puts 'Rentals:'
-    @@rentals.each do |rental|
+    @rentals.each do |rental|
       if rental.person.id.to_s == user_id
         puts "[#{rental.person.class}] Name: #{rental.person.name}
         | Date: #{rental.date} | Book: \"#{rental.book.title}\" by #{rental.book.author}"
@@ -93,19 +93,9 @@ class ListAllRentalById < App
   end
 end
 
-class ListAllPeople < App
-  def list_all_people
-    @users.each do |user|
-      puts "[#{user.class}] Name: #{user.name} | ID: #{user.id} | Age: #{user.age}"
-    end
-    puts "\n"
-    continue?
-  end
-end
-
 class ListAllBooks < App
   def list_all_books
-    @@books.each do |book|
+    @books.each do |book|
       puts "Title: #{book.title} | Author: #{book.author}"
     end
     puts "\n"
@@ -121,7 +111,7 @@ class CreateBook < App
     print 'Author: '
     author = gets.chomp
 
-    @@books << Book.new(title, author)
+    @books << Book.new(title, author)
     response('Book ')
   end
 end
@@ -130,7 +120,7 @@ class CreateRental < App
   def add_rental
     puts "Select a book from the following list by number:\n"
 
-    @@books.each_with_index do |book, index|
+    @books.each_with_index do |book, index|
       puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
     end
 
@@ -138,13 +128,13 @@ class CreateRental < App
 
     puts "\nSelect a person from the following list by number (not id):"
 
-    @@users.each_with_index do |user, index|
+    @users.each_with_index do |user, index|
       puts "#{index}) Name: #{user.name}, ID: #{user.id}, Age: #{user.age}"
     end
 
     user_index = gets.chomp
 
-    if !@@books[book_index.to_i] || !@@users[user_index.to_i]
+    if !@books[book_index.to_i] || !@users[user_index.to_i]
       clear
       puts "The user/book selected does not exist.\n"
       continue?
@@ -152,7 +142,7 @@ class CreateRental < App
       print "\nDate: "
       date = gets.chomp
 
-      @@rentals << Rental.new(@@users[user_index.to_i], @@books[book_index.to_i], date)
+      @rentals << Rental.new(@users[user_index.to_i], @books[book_index.to_i], date)
       response('Rental')
     end
   end
