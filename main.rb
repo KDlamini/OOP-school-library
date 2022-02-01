@@ -83,7 +83,8 @@ class App
     puts 'Rentals:'
     @@rentals.each do |rental|
       if rental.person.id.to_s == user_id
-        puts "[#{rental.person.class}] Name: #{rental.person.name} | Date: #{rental.date} | Book: \"#{rental.book.title}\" by #{rental.book.author}"
+        puts "[#{rental.person.class}] Name: #{rental.person.name}
+        | Date: #{rental.date} | Book: \"#{rental.book.title}\" by #{rental.book.author}"
       end
     end
 
@@ -92,9 +93,7 @@ class App
   end
 end
 
-class CreateUser
-  include Helpers
-
+class CreateUser < App
   def add_user
     puts "\nPlease select a number to choose an option:"
     puts '1 - Create a student'
@@ -166,7 +165,7 @@ class CreateBook < App
 end
 
 class CreateRental < App
-    def add_rental
+  def add_rental
     puts "Select a book from the following list by number:\n"
 
     @@books.each_with_index do |book, index|
