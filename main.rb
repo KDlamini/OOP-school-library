@@ -52,30 +52,16 @@ class App
     when '3'
       CreateRental.new.add_rental
     when '4'
-      list_all_books
+      ListAllBooks.new.list_all_books
     when '5'
-      list_all_people
+      ListAllPeople.new.list_all_people
     when '6'
-      list_all_rental_by_id
+      ListAllRentalById.new.list_all_rental_by_id
     end
   end
+end
 
-  def list_all_books
-    @@books.each do |book|
-      puts "Title: #{book.title} | Author: #{book.author}"
-    end
-    puts "\n"
-    continue?
-  end
-
-  def list_all_people
-    @@users.each do |user|
-      puts "[#{user.class}] Name: #{user.name} | ID: #{user.id} | Age: #{user.age}"
-    end
-    puts "\n"
-    continue?
-  end
-
+class ListAllRentalById < App
   def list_all_rental_by_id
     print 'ID of person: '
     user_id = gets.chomp
@@ -88,6 +74,26 @@ class App
       end
     end
 
+    puts "\n"
+    continue?
+  end
+end
+
+class ListAllPeople < App
+  def list_all_people
+    @@users.each do |user|
+      puts "[#{user.class}] Name: #{user.name} | ID: #{user.id} | Age: #{user.age}"
+    end
+    puts "\n"
+    continue?
+  end
+end
+
+class ListAllBooks < App
+  def list_all_books
+    @@books.each do |book|
+      puts "Title: #{book.title} | Author: #{book.author}"
+    end
     puts "\n"
     continue?
   end
