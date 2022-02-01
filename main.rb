@@ -2,14 +2,28 @@ require './student'
 require './teacher'
 require './book'
 require './rental'
-require './module'
+require './helpers'
+require './createuser'
 
 class App
   include Helpers
+  include CreateUser
 
   @@books = []
   @@users = []
   @@rentals = []
+
+  def initialize
+    @users = []
+  end
+
+  def update_users(user)
+    @users << user
+  end
+  
+  def get_user
+    @users
+  end
 
   def run
     clear
@@ -46,7 +60,7 @@ class App
   def selection(input)
     case input
     when '1'
-      CreateUser.new.add_user
+      add_user
     when '2'
       CreateBook.new.add_book
     when '3'
@@ -81,7 +95,7 @@ end
 
 class ListAllPeople < App
   def list_all_people
-    @@users.each do |user|
+    @users.each do |user|
       puts "[#{user.class}] Name: #{user.name} | ID: #{user.id} | Age: #{user.age}"
     end
     puts "\n"
@@ -96,64 +110,6 @@ class ListAllBooks < App
     end
     puts "\n"
     continue?
-  end
-end
-
-class CreateUser < App
-  def add_user
-    puts "\nPlease select a number to choose an option:"
-    puts '1 - Create a student'
-    puts '2 - Create a teacher'
-    puts '0 - Exit'
-    user = gets.chomp
-
-    case user
-    when '1'
-      clear
-      CreateStudent.new.add_student
-    when '2'
-      clear
-      CreateTeacher.new.add_teacher
-    when '0'
-      exit
-    else
-      invalid_prompt
-      add_user
-    end
-  end
-end
-
-class CreateStudent < App
-  def add_student
-    print 'Age: '
-    age = gets.chomp
-
-    print 'Name: '
-    name = gets.chomp
-
-    print 'Has parent permission? [Y/N]: '
-    permission = gets.chomp
-
-    parent_permission = permission.downcase == 'y' || permission.downcase == 'yes' || permission == ''
-
-    @@users << Student.new(age: age.to_i, name: name, parent_permission: parent_permission)
-    response('Student')
-  end
-end
-
-class CreateTeacher < App
-  def add_teacher
-    print 'Age: '
-    age = gets.chomp
-
-    print 'Name: '
-    name = gets.chomp
-
-    print 'Specialization: '
-    specialization = gets.chomp
-
-    @@users << Teacher.new(specialization: specialization, age: age.to_i, name: name)
-    response('Teacher')
   end
 end
 
