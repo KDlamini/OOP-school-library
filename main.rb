@@ -99,16 +99,6 @@ class ListAllRentalById < App
   end
 end
 
-class ListAllBooks < App
-  def list_all_books
-    books.each do |book|
-      puts "Title: #{book.title} | Author: #{book.author}"
-    end
-    puts "\n"
-    continue?
-  end
-end
-
 def load
   app = App.new
   app.run
