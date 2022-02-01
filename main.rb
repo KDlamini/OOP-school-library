@@ -1,14 +1,15 @@
-require './rental'
 require './helpers'
 require './createuser'
 require './list'
 require './addbook'
+require './addrental'
 
 class App
   include Helpers
   include Listers
   include CreateUser
   include CreateBook
+  include CreateRental
 
   def initialize
     @users = []
@@ -55,7 +56,7 @@ class App
     when '2'
       add_book
     when '3'
-      CreateRental.new.add_rental
+      add_rental
     when '4'
       ListAllBooks.new.list_all_books
     when '5'
@@ -72,10 +73,12 @@ class App
   def update_books(book)
     @books << book
   end
-  
-  def get_users
-    @users
+
+  def update_rentals(rental)
+    @rentals << rental
   end
+
+  attr_reader :users, :books, :rentals
 end
 
 class ListAllRentalById < App
@@ -84,7 +87,7 @@ class ListAllRentalById < App
     user_id = gets.chomp
 
     puts 'Rentals:'
-    @rentals.each do |rental|
+    rentals.each do |rental|
       if rental.person.id.to_s == user_id
         puts "[#{rental.person.class}] Name: #{rental.person.name}
         | Date: #{rental.date} | Book: \"#{rental.book.title}\" by #{rental.book.author}"
@@ -98,43 +101,11 @@ end
 
 class ListAllBooks < App
   def list_all_books
-    @books.each do |book|
+    books.each do |book|
       puts "Title: #{book.title} | Author: #{book.author}"
     end
     puts "\n"
     continue?
-  end
-end
-
-class CreateRental < App
-  def add_rental
-    puts "Select a book from the following list by number:\n"
-
-    @books.each_with_index do |book, index|
-      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
-    end
-
-    book_index = gets.chomp
-
-    puts "\nSelect a person from the following list by number (not id):"
-
-    @users.each_with_index do |user, index|
-      puts "#{index}) Name: #{user.name}, ID: #{user.id}, Age: #{user.age}"
-    end
-
-    user_index = gets.chomp
-
-    if !@books[book_index.to_i] || !@users[user_index.to_i]
-      clear
-      puts "The user/book selected does not exist.\n"
-      continue?
-    else
-      print "\nDate: "
-      date = gets.chomp
-
-      @rentals << Rental.new(@users[user_index.to_i], @books[book_index.to_i], date)
-      response('Rental')
-    end
   end
 end
 
