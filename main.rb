@@ -58,11 +58,11 @@ class App
     when '3'
       add_rental
     when '4'
-      ListAllBooks.new.list_all_books
+      list_all_books
     when '5'
       list_all_people
     when '6'
-      ListAllRentalById.new.list_all_rental_by_id
+      list_all_rental_by_id
     end
   end
 
