@@ -1,15 +1,14 @@
-require './student'
-require './teacher'
-require './book'
 require './rental'
 require './helpers'
 require './createuser'
 require './list'
+require './addbook'
 
 class App
   include Helpers
   include Listers
   include CreateUser
+  include CreateBook
 
   def initialize
     @users = []
@@ -54,7 +53,7 @@ class App
     when '1'
       add_user
     when '2'
-      CreateBook.new.add_book
+      add_book
     when '3'
       CreateRental.new.add_rental
     when '4'
@@ -68,6 +67,10 @@ class App
 
   def update_users(user)
     @users << user
+  end
+
+  def update_books(book)
+    @books << book
   end
   
   def get_users
@@ -100,19 +103,6 @@ class ListAllBooks < App
     end
     puts "\n"
     continue?
-  end
-end
-
-class CreateBook < App
-  def add_book
-    print 'Title: '
-    title = gets.chomp
-
-    print 'Author: '
-    author = gets.chomp
-
-    @books << Book.new(title, author)
-    response('Book ')
   end
 end
 
