@@ -1,7 +1,10 @@
+require './preservedata'
 module Listers
+  include PreserveData
+
   def list_all_people
-    users.each do |user|
-      puts "[#{user.class}] Name: #{user.name} | ID: #{user.id} | Age: #{user.age}"
+    fetch_saved_data("users").each do |user|
+      puts "[#{user["instance"]}] Name: #{user["name"]} | ID: #{user["id"]} | Age: #{user["age"]}"
     end
     puts "\n"
     continue?

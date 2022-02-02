@@ -22,10 +22,10 @@ module PreserveData
     data = fetch_saved_data(filename)
 
     if user.instance_of?(Teacher)
-      data.push({ instance: 'teacher', id: user.id, age: user.age, name: user.name,
+      data.push({ instance: 'Teacher', id: user.id, age: user.age, name: user.name,
                   specialization: user.specialization })
     else
-      data.push({ instance: 'student', id: user.id, age: user.age, name: user.name,
+      data.push({ instance: 'Student', id: user.id, age: user.age, name: user.name,
                   permission: user.parent_permission, classroom: user.classroom })
     end
 
