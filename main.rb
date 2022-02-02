@@ -70,6 +70,7 @@ class App
 
   def update_users(user)
     @users << user
+    save_user('users', user)
   end
 
   def update_books(book)
