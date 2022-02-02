@@ -80,6 +80,7 @@ class App
 
   def update_rentals(rental)
     @rentals << rental
+    save_book('rentals', rental)
   end
 
   attr_reader :users, :books, :rentals

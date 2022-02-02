@@ -44,6 +44,14 @@ module PreserveData
     save(data, path)
   end
 
+  def save_rental(filename, rental)
+    path = "data/#{filename}.json"
+    data = fetch_saved_data(filename)
+
+    data.push({ date: rental.date, person: rental.person.id, book: rental.book.title })
+    save(data, path)
+  end
+
   def does_file_exist?(filename)
     File.exist? "data/#{filename}.json"
   end
