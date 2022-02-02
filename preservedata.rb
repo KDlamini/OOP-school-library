@@ -17,6 +17,10 @@ module PreserveData
     data
   end
 
+  def save(data, path)
+    File.write(path, JSON.generate(data, create_additions: true))
+  end
+
   def save_user(filename, user)
     path = "data/#{filename}.json"
     data = fetch_saved_data(filename)
@@ -29,7 +33,15 @@ module PreserveData
                   permission: user.parent_permission, classroom: user.classroom })
     end
 
-    File.write(path, JSON.generate(data, create_additions: true))
+    save(data, path)
+  end
+
+  def save_book(filename, book)
+    path = "data/#{filename}.json"
+    data = fetch_saved_data(filename)
+
+    data.push({ title: book.title, author: book.author })
+    save(data, path)
   end
 
   def does_file_exist?(filename)

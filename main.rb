@@ -75,6 +75,7 @@ class App
 
   def update_books(book)
     @books << book
+    save_book('books', book)
   end
 
   def update_rentals(rental)
