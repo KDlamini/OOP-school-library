@@ -17,14 +17,18 @@ Clone this repository or download the Zip folder:
 ```
 git clone git@github.com:KDlamini/OOP-school-library.git
 ```
+Then:
+```
+cd OOP-school-library
 
-To get started, In the root directory run:
-```
 gem install bundler
-```
-Then run:
-```
+
 bundle install
+```
+
+To run App:
+```
+ruby main.rb
 ```
 
 ## `Tests`
@@ -34,7 +38,7 @@ Track Ruby linter errors run:
 ```
 rubocop
 ```
-To auto-correct Rubocop offenses run:
+To auto-correct correctable Rubocop offenses run:
 ```
 rubocop --auto-correct-all | rubocop -A
 ```
