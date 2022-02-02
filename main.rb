@@ -3,6 +3,7 @@ require './createuser'
 require './list'
 require './addbook'
 require './addrental'
+require './preservedata'
 
 class App
   include Helpers
@@ -10,11 +11,12 @@ class App
   include CreateUser
   include CreateBook
   include CreateRental
+  include PreserveData
 
   def initialize
-    @users = []
-    @books = []
-    @rentals = []
+    @users = fetch_saved_data('users')
+    @books = fetch_saved_data('books')
+    @rentals = fetch_saved_data('rentals')
   end
 
   def run
