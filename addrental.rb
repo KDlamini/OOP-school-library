@@ -4,8 +4,8 @@ require './preservedata'
 module CreateRental
   include PreserveData
 
-  def find_person(id, users)
-    users.each { |person| return person if person["id"] == id }
+  def find_user(id, users)
+    users.each { |user| return user if user["id"] == id }
   end
 
   def find_book(title, books)
@@ -40,7 +40,7 @@ module CreateRental
       print "\nDate: "
       date = gets.chomp
 
-      update_rentals(Rental.new(find_person(fetched_users[user_index.to_i]["id"], fetched_books), find_book(fetched_books[book_index.to_i]["title"], fetched_books), date))
+      update_rentals(Rental.new(find_user(fetched_users[user_index.to_i]["id"], fetched_books), find_book(fetched_books[book_index.to_i]["title"], fetched_books), date))
       response('Rental')
     end
   end
@@ -57,5 +57,5 @@ module CreateRental
   #   else
   #     []
   #   end
-  end
+  # end
 end
