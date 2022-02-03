@@ -10,13 +10,21 @@ module PreserveData
   end
 
   def fetch_data(path)
-    data = JSON.parse(File.read(path), create_additions: true)
+    JSON.parse(File.read(path), create_additions: true)
+  end
+
+  def save(path, data)
+    File.write(path, JSON.generate(data, create_additions: true))
+  end
+
+  def file_exist?(filename)
+    File.exist? filename
   end
 
   def fetch_users
     path = 'data/users.json'
 
-    if does_file_exist?('users')
+    if file_exist?(path)
       fetch_data(path).map do |users|
         if users['instance'] == 'Teacher'
           teacher = Teacher.new(id: users['id'], specialization: users['specialization'],
@@ -28,6 +36,19 @@ module PreserveData
                                 parent_permission: parent_permission, classroom: users['classroom'])
           student
         end
+      end
+    else
+      create_file(path)
+      []
+    end
+  end
+
+  def fetch_books
+    path = 'data/books.json'
+
+    if file_exist?(path)
+      fetch_data(path).map do |book|
+        Book.new(book['title'], book['author'])
       end
     else
       create_file(path)
@@ -52,7 +73,7 @@ module PreserveData
 
   def save_book(book)
     path = 'data/books.json'
-    fetch_data(path)
+    data = fetch_data(path)
 
     data.push({ title: book.title, author: book.author })
     save(path, data)
@@ -60,17 +81,9 @@ module PreserveData
 
   def save_rental(rental)
     path = 'data/rental.json'
-    fetch_data(path)
+    data = fetch_data(path)
 
     data.push({ date: rental.date, person: rental.person.id, book: rental.book.title })
     save(path, data)
-  end
-
-  def save(path, data)
-    File.write(path, JSON.generate(data, create_additions: true))
-  end
-
-  def does_file_exist?(filename)
-    File.exist? "data/#{filename}.json"
   end
 end

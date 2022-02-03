@@ -5,11 +5,11 @@ module CreateRental
   include PreserveData
 
   def find_user(id, users)
-    users.each { |user| return user if user["id"] == id }
+    users.each { |user| return user if user['id'] == id }
   end
 
   def find_book(title, books)
-    books.each { |book| return book if book["title"] == title }
+    books.each { |book| return book if book['title'] == title }
   end
 
   def add_rental
@@ -19,7 +19,7 @@ module CreateRental
     puts "Select a book from the following list by number:\n"
 
     fetched_books.each_with_index do |book, index|
-      puts "#{index}) Title: \"#{book["title"]}\", Author: #{book["author"]}"
+      puts "#{index}) Title: \"#{book['title']}\", Author: #{book['author']}"
     end
 
     book_index = gets.chomp
@@ -27,7 +27,7 @@ module CreateRental
     puts "\nSelect a person from the following list by number (not id):"
 
     fetched_users.each_with_index do |user, index|
-      puts "#{index}) Name: #{user["name"]}, ID: #{user["id"]}, Age: #{user["age"]}"
+      puts "#{index}) Name: #{user['name']}, ID: #{user['id']}, Age: #{user['age']}"
     end
 
     user_index = gets.chomp
@@ -40,7 +40,8 @@ module CreateRental
       print "\nDate: "
       date = gets.chomp
 
-      update_rentals(Rental.new(find_user(fetched_users[user_index.to_i]["id"], fetched_books), find_book(fetched_books[book_index.to_i]["title"], fetched_books), date))
+      update_rentals(Rental.new(find_user(fetched_users[user_index.to_i]['id'], fetched_books),
+                                find_book(fetched_books[book_index.to_i]['title'], fetched_books), date))
       response('Rental')
     end
   end

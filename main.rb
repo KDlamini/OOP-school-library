@@ -17,7 +17,7 @@ class App
 
   def initialize
     @users = fetch_users
-    @books = []
+    @books = fetch_books
     @rentals = []
   end
 
