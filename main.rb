@@ -14,9 +14,9 @@ class App
   include PreserveData
 
   def initialize
-    @users = fetch_saved_data('users')
-    @books = fetch_saved_data('books')
-    @rentals = fetch_saved_data('rentals')
+    @users = []
+    @books = []
+    @rentals = []
   end
 
   def run
@@ -80,7 +80,7 @@ class App
 
   def update_rentals(rental)
     @rentals << rental
-    save_book('rentals', rental)
+    save_rental('rentals', rental)
   end
 
   attr_reader :users, :books, :rentals
