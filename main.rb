@@ -3,6 +3,7 @@ require './createuser'
 require './list'
 require './addbook'
 require './addrental'
+require './preservedata'
 
 class App
   include Helpers
@@ -10,11 +11,14 @@ class App
   include CreateUser
   include CreateBook
   include CreateRental
+  include PreserveData
+
+  attr_reader :users, :books, :rentals
 
   def initialize
-    @users = []
-    @books = []
-    @rentals = []
+    @users = fetch_users
+    @books = fetch_books
+    @rentals = fetch_rentals
   end
 
   def run
@@ -68,17 +72,18 @@ class App
 
   def update_users(user)
     @users << user
+    save_user(user)
   end
 
   def update_books(book)
     @books << book
+    save_book(book)
   end
 
   def update_rentals(rental)
     @rentals << rental
+    save_rental(rental)
   end
-
-  attr_reader :users, :books, :rentals
 end
 
 def load
