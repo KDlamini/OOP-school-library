@@ -27,14 +27,12 @@ module PreserveData
     if file_exist?(path)
       fetch_data(path).map do |users|
         if users['instance'] == 'Teacher'
-          teacher = Teacher.new(id: users['id'], specialization: users['specialization'],
-                                age: users['age'], name: users['name'])
-          teacher
+          Teacher.new(id: users['id'], specialization: users['specialization'],
+                      age: users['age'], name: users['name'])
         else
           parent_permission = users['permission'] && true
-          student = Student.new(id: users['id'], age: users['age'], name: users['name'],
-                                parent_permission: parent_permission, classroom: users['classroom'])
-          student
+          Student.new(id: users['id'], age: users['age'], name: users['name'],
+                      parent_permission: parent_permission, classroom: users['classroom'])
         end
       end
     else
