@@ -56,6 +56,23 @@ module PreserveData
     end
   end
 
+  def fetch_rentals
+    path = 'data/rentals.json'
+
+    if file_exist?(path)
+      fetch_data(path).map do |rental|
+        date = rental['date']
+        user = users.each { |user| user if user.id == rental['user'] }
+        book = books.each { |book| book if book.title == rental['book']}
+
+        Rental.new(date, book, user)
+      end
+    else
+      create_file(path)
+      []
+    end
+  end
+
   def save_user(user)
     path = 'data/users.json'
     data = fetch_data(path)
@@ -80,10 +97,10 @@ module PreserveData
   end
 
   def save_rental(rental)
-    path = 'data/rental.json'
+    path = 'data/rentals.json'
     data = fetch_data(path)
 
-    data.push({ date: rental.date, person: rental.person.id, book: rental.book.title })
+    data.push({ date: rental.date, user: rental.person.id, book: rental.book.title })
     save(path, data)
   end
 end
