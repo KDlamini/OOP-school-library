@@ -11,5 +11,10 @@ describe Corrector do
     it 'should correct name with first letter in upper case' do
       expect(corrector.correct_name('hamid')).to eq 'Hamid'
     end
+
+    it 'should return name no more than 10 characters' do
+      expect(corrector.correct_name('hamidmurambiwa')).to eq 'Hamidmuram'
+      expect(corrector.correct_name('hamidmurambiwa').length).to eq 10
+    end
   end
 end
