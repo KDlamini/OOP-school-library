@@ -59,6 +59,12 @@ rubocop --auto-correct-all | rubocop -A
 - Twitter: [@RealSimoNkosi](https://twitter.com/RealSimoNkosi)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/simo-nkosi-418523180/)
 
+👤 **Hamid Murambiwa**
+
+- GitHub: [@githubhandle](https://github.com/hamid-murambiwa/)
+- Twitter: [@twitterhandle](https://twitter.com/Hamid87789454/)
+- LinkedIn: [LinkedIn](https://linkedin.com/in/hamid-murambiwa/)
+
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
