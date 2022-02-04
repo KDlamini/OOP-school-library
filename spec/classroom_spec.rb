@@ -10,7 +10,7 @@ describe Classroom do
         end
     
         it 'should add new student to classroom' do
-            classroom.add_student(Student.new(age: 21, classroom: nil, name: 'Hamid', parent_permission: true))
+            classroom.add_student(Student.new(id: 1782, age: 21, classroom: nil, name: 'Hamid', parent_permission: true))
         end
     
     end

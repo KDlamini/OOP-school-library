@@ -5,7 +5,7 @@ require_relative '../rental'
 describe Rental do
   context 'should add a book and a person' do
     book = Book.new('48 laws of power', 'Robert Green')
-    person = Person.new(age: 15, name: 'hamid', parent_permission: true)
+    person = Person.new(id: 1782, age: 15, name: 'hamid', parent_permission: true)
     rental = Rental.new(person, book, '02/02/2022')
 
     it 'should create a rental for person' do

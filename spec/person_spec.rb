@@ -2,7 +2,7 @@ require_relative '../person'
 
 describe Person do
 context 'It should add a person' do
-    person = Person.new(age: 23, name: 'hamid', parent_permission: true)
+    person = Person.new(id: 1782, age: 23, name: 'hamid', parent_permission: true)
 
     it 'should be an instance of class Person' do
         expect(person).to be_an_instance_of(Person)

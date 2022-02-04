@@ -2,7 +2,7 @@ require_relative '../student'
 
 describe Student do
 context 'It should add a student' do
-    student = Student.new(classroom: 'new classroom', age: 23, name: 'hamid', parent_permission: true)
+    student = Student.new(id: 1827, classroom: 'new classroom', age: 23, name: 'hamid', parent_permission: true)
 
     it 'student should be an instance of class Student' do
         expect(student).to be_an_instance_of(Student)
