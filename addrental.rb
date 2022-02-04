@@ -57,5 +57,5 @@ module CreateRental
   #   else
   #     []
   #   end
-  end
+  # end
 end
