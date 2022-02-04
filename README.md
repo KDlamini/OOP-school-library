@@ -32,7 +32,15 @@ ruby main.rb
 ```
 
 ## `Tests`
-### To track linter errors locally follow these steps:  
+
+### To run Rspec tests:
+```
+gem install rspec
+
+rspec ./spec
+```
+
+### To track linter errors locally follow these steps:
 
 Track Ruby linter errors run:
 ```
