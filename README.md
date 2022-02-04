@@ -32,7 +32,15 @@ ruby main.rb
 ```
 
 ## `Tests`
-### To track linter errors locally follow these steps:  
+
+### To run Rspec tests:
+```
+gem install rspec
+
+rspec ./spec
+```
+
+### To track linter errors locally follow these steps:
 
 Track Ruby linter errors run:
 ```
@@ -50,6 +58,12 @@ rubocop --auto-correct-all | rubocop -A
 - GitHub: [@KDlamini](https://github.com/KDlamini)
 - Twitter: [@RealSimoNkosi](https://twitter.com/RealSimoNkosi)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/simo-nkosi-418523180/)
+
+👤 **Hamid Murambiwa**
+
+- GitHub: [@githubhandle](https://github.com/hamid-murambiwa/)
+- Twitter: [@twitterhandle](https://twitter.com/Hamid87789454/)
+- LinkedIn: [LinkedIn](https://linkedin.com/in/hamid-murambiwa/)
 
 ## 🤝 Contributing
 
